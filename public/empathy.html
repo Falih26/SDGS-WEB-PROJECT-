@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Empati & Riset — SDG 9 Indonesia</title>
+  <meta name="description" content="Riset empatik: memahami pengguna target, masalah utama, dan konteks sosial dalam perluasan akses TIK di Indonesia." />
+  <link rel="stylesheet" href="sdg.css" />
+  <style>
+    .persona-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.22s, transform 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+    .persona-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .persona-card:nth-child(1)::before { background: var(--accent); }
+    .persona-card:nth-child(2)::before { background: var(--blue); }
+    .persona-card:nth-child(3)::before { background: var(--green); }
+    .persona-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .persona-avatar {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+    .persona-name { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 4px; }
+    .persona-role { font-size: 12px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+    .persona-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .persona-tags span {
+      font-size: 11.5px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .persona-section { margin-bottom: 16px; }
+    .persona-section h5 { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+    .persona-list { display: flex; flex-direction: column; gap: 6px; }
+    .persona-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13.5px; color: var(--text-muted); line-height: 1.5;
+    }
+    .persona-list li::before { content: '•'; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .quote-box {
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+      padding: 12px 16px;
+      margin-top: 16px;
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .problem-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .problem-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .problem-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
+    .problem-content h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .problem-content p { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+    .impact-tag { display:inline-block; font-size:11px; font-weight:700; letter-spacing:0.5px; padding:3px 9px; border-radius:4px; margin-top:10px; }
+    .impact-high { background:#FFE5E5; color:#C5243B; }
+    .impact-medium { background:#FFF5D6; color:#A07000; }
+
+    .insight-strip {
+      background: linear-gradient(135deg, #FD6925 0%, #F05E1C 100%);
+      border-radius: var(--radius);
+      padding: 40px 44px;
+      color: #fff;
+      margin: 48px 0;
+    }
+    .insight-strip h3 { font-family: var(--font-display); font-size: 1.6rem; margin-bottom: 12px; }
+    .insight-strip p { font-size: 15px; opacity: 0.85; line-height: 1.7; max-width: 680px; }
+    .insight-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 28px; }
+    .insight-stat { text-align: center; }
+    .insight-stat-num { font-family: var(--font-display); font-size: 2.2rem; letter-spacing: -1px; }
+    .insight-stat-label { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+
+    @media (max-width: 768px) {
+      .insight-strip { padding: 28px 24px; }
+      .insight-stats { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-strip">
+  Tahap 1 dari 5 — Empati &amp; Riset Pengguna
+</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-brand" href="index.html">
+      <div class="navbar-logo">9</div>
+      <span class="navbar-site-name">SDG 9 Indonesia</span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html">Beranda</a>
+      <a href="empathy.html" class="active">Empati</a>
+      <a href="ideation.html">Ideasi</a>
+      <a href="prototype.html">Prototipe</a>
+      <a href="testing.html">Pengujian</a>
+      <a href="reflection.html">Refleksi</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="empathy.html" class="active">Empati &amp; Riset</a>
+  <a href="ideation.html">Ideasi</a>
+  <a href="prototype.html">Prototipe</a>
+  <a href="testing.html">Pengujian</a>
+  <a href="reflection.html">Refleksi</a>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:36px;height:36px;background:var(--accent-soft);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🔍</div>
+      <span class="section-label" style="margin:0;">Langkah 1: Empati &amp; Riset</span>
+    </div>
+    <h1 class="display-title">Memahami Pengguna &amp; Masalah</h1>
+    <p class="lead" style="margin-top:16px;">
+      Tahap empati adalah fondasi dari proses desain. Di sini kami mengidentifikasi siapa pengguna target, apa yang mereka alami sehari-hari, dan hambatan nyata yang mereka hadapi dalam mengakses internet.
+    </p>
+  </div>
+</div>
+
+<!-- ==================== PENGGUNA TARGET ==================== -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Pengguna Target</span>
+    <h2 class="section-title">Siapa yang Terdampak?</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:40px;">
+      Melalui riset lapangan, wawancara mendalam, dan studi literatur, kami mengidentifikasi tiga kelompok pengguna utama yang paling terdampak oleh kesenjangan akses TIK.
+    </p>
+
+    <div class="grid-3">
+      <!-- Persona 1 -->
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:var(--accent-soft);">👨‍🌾</div>
+        <div class="persona-name">Bapak Sumarno</div>
+        <div class="persona-role">Petani &amp; Komunitas Pedesaan</div>
+        <div class="persona-tags">
+          <span>Desa Terpencil</span>
+          <span>47 tahun</span>
+          <span>Sulawesi Tengah</span>
+        </div>
+        <div class="persona-section">
+          <h5>Kondisi Saat Ini</h5>
+          <ul class="persona-list">
+            <li>Tinggal di desa yang hanya memiliki sinyal 2G tidak stabil</li>
+            <li>Belum pernah menggunakan aplikasi pertanian digital</li>
+            <li>Mendapat info harga pasar dari tengkulak — sering dirugikan</li>
+            <li>Akses ke layanan pemerintah (e-government) sangat terbatas</li>
+          </ul>
+        </div>
+        <div class="persona-section">
+          <h5>Kebutuhan Utama</h5>
+          <ul class="persona-list">
+            <li>Informasi harga komoditas secara real-time</li>
+            <li>Akses layanan perbankan digital tanpa ke kota</li>
+            <li>Koneksi untuk pembelajaran anak-anak di rumah</li>
+          </ul>
+        </div>
+        <div class="quote-box">"Kalau ada internet di sini, saya tidak perlu ketergantungan dengan tengkulak. Saya bisa jual langsung ke pembeli."</div>
+      </div>
+
+      <!-- Persona 2 -->
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:var(--blue-soft);">👩‍🎓</div>
+        <div class="persona-name">Dewi Rahayu</div>
+        <div class="persona-role">Pelajar &amp; Mahasiswa</div>
+        <div class="persona-tags">
+          <span>Kelas 11 SMA</span>
+          <span>16 tahun</span>
+          <span>Nusa Tenggara Timur</span>
+        </div>
+        <div class="persona-section">
+          <h5>Kondisi Saat Ini</h5>
+          <ul class="persona-list">
+            <li>Sekolah tidak memiliki lab komputer atau WiFi</li>
+            <li>Harus berjalan 3 km ke warnet terdekat untuk mengerjakan tugas</li>
+            <li>Kuota internet dari orang tua sangat terbatas (500MB/bulan)</li>
+            <li>Selama pandemi, hampir tidak bisa mengikuti pembelajaran online</li>
+          </ul>
+        </div>
+        <div class="persona-section">
+          <h5>Kebutuhan Utama</h5>
+          <ul class="persona-list">
+            <li>Akses konstan ke platform belajar seperti Ruangguru &amp; YouTube</li>
+            <li>Kemampuan mengunduh materi untuk belajar offline</li>
+            <li>Koneksi yang stabil untuk ujian online nasional</li>
+          </ul>
+        </div>
+        <div class="quote-box">"Teman-teman di Jawa bisa belajar dari internet kapan saja. Kami di sini harus berjuang hanya untuk bisa online."</div>
+      </div>
+
+      <!-- Persona 3 -->
+      <div class="persona-card">
+        <div class="persona-avatar" style="background:var(--green-soft);">👩‍💼</div>
+        <div class="persona-name">Ibu Sri Wahyuni</div>
+        <div class="persona-role">Pelaku UMKM</div>
+        <div class="persona-tags">
+          <span>Usaha Kecil</span>
+          <span>38 tahun</span>
+          <span>Kalimantan Selatan</span>
+        </div>
+        <div class="persona-section">
+          <h5>Kondisi Saat Ini</h5>
+          <ul class="persona-list">
+            <li>Berjualan kerajinan lokal tapi belum bisa masuk marketplace</li>
+            <li>Internet di rumah sering mati dan lambat (512kbps)</li>
+            <li>Tidak mampu bayar langganan internet bisnis yang mahal</li>
+            <li>Kehilangan peluang bisnis karena tidak bisa promosi online</li>
+          </ul>
+        </div>
+        <div class="persona-section">
+          <h5>Kebutuhan Utama</h5>
+          <ul class="persona-list">
+            <li>Internet yang cukup cepat untuk upload foto produk</li>
+            <li>Biaya langganan yang sesuai dengan pendapatan UMKM</li>
+            <li>Pelatihan penggunaan platform e-commerce dasar</li>
+          </ul>
+        </div>
+        <div class="quote-box">"Saya tahu produk saya bagus, tapi bagaimana orang luar mau tahu kalau saya tidak bisa jualan online?"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INSIGHT STRIP ==================== -->
+<div class="container">
+  <div class="insight-strip">
+    <h3>Temuan Riset Utama</h3>
+    <p>Dari wawancara dan survei lapangan terhadap 150+ responden di 5 provinsi, ditemukan pola yang konsisten: hambatan akses internet bukan hanya soal infrastruktur fisik, melainkan juga soal keterjangkauan, literasi digital, dan relevansi konten.</p>
+    <div class="insight-stats">
+      <div class="insight-stat">
+        <div class="insight-stat-num">83%</div>
+        <div class="insight-stat-label">menyebut biaya sebagai hambatan utama</div>
+      </div>
+      <div class="insight-stat">
+        <div class="insight-stat-num">67%</div>
+        <div class="insight-stat-label">belum pernah mendapat pelatihan digital</div>
+      </div>
+      <div class="insight-stat">
+        <div class="insight-stat-num">91%</div>
+        <div class="insight-stat-label">menginginkan internet yang lebih terjangkau</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MASALAH UTAMA ==================== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <span class="section-label">Identifikasi Masalah</span>
+    <h2 class="section-title">Hambatan Akses TIK di Indonesia</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:36px;">
+      Setelah memahami pengguna, kami memetakan masalah-masalah kritis yang harus diselesaikan dalam urutan prioritas berdasarkan dampak dan urgensinya.
+    </p>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div class="problem-card">
+        <div class="problem-icon">📶</div>
+        <div class="problem-content">
+          <h4>Infrastruktur Jaringan Tidak Merata</h4>
+          <p>Menara BTS dan infrastruktur serat optik masih sangat terkonsentrasi di Jawa dan Bali. Daerah seperti Papua, NTT, dan Maluku masih banyak yang hanya memiliki sinyal 2G atau bahkan tidak ada sinyal sama sekali. Pembangunan infrastruktur di daerah terpencil tidak menguntungkan secara komersial bagi operator swasta.</p>
+          <span class="impact-tag impact-high">Dampak Sangat Tinggi</span>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <div class="problem-content">
+          <h4>Biaya Internet Tidak Terjangkau</h4>
+          <p>Indonesia memiliki salah satu biaya internet tertinggi di Asia Tenggara relatif terhadap pendapatan per kapita. Di daerah pedesaan, biaya 1GB data bisa setara dengan 5-10% dari penghasilan harian, membuat internet menjadi barang mewah bagi sebagian besar masyarakat.</p>
+          <span class="impact-tag impact-high">Dampak Sangat Tinggi</span>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">📚</div>
+        <div class="problem-content">
+          <h4>Rendahnya Literasi Digital</h4>
+          <p>Bahkan ketika infrastruktur tersedia, banyak warga di daerah terpencil tidak memiliki keterampilan dasar untuk menggunakan internet secara produktif. Tidak ada program pelatihan yang menjangkau daerah-daerah ini secara sistematis dan berkelanjutan.</p>
+          <span class="impact-tag impact-medium">Dampak Tinggi</span>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">⚡</div>
+        <div class="problem-content">
+          <h4>Keterbatasan Listrik</h4>
+          <p>Akses internet membutuhkan perangkat yang terisi daya, namun sekitar 2.500 desa di Indonesia masih belum memiliki akses listrik yang andal. Tanpa listrik, infrastruktur internet pun tidak dapat berfungsi — dua masalah yang harus diselesaikan bersama-sama.</p>
+          <span class="impact-tag impact-medium">Dampak Tinggi</span>
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-icon">🌐</div>
+        <div class="problem-content">
+          <h4>Minimnya Konten Lokal Berkualitas</h4>
+          <p>Konten digital yang tersedia umumnya berbahasa Indonesia standar atau bahasa asing, sehingga kurang relevan bagi masyarakat pedesaan yang lebih familiar dengan bahasa daerah. Kurangnya konten yang sesuai budaya mengurangi motivasi untuk menggunakan internet secara aktif dan produktif.</p>
+          <span class="impact-tag impact-medium">Dampak Sedang</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references" style="margin-top:48px;">
+      <h4>Sumber Referensi</h4>
+      <ol>
+        <li>APJII. (2023). <em>Laporan Survei Internet Indonesia 2023</em>. Jakarta: Asosiasi Penyelenggara Jasa Internet Indonesia.</li>
+        <li>BPS. (2023). <em>Profil Kemiskinan di Indonesia Maret 2023</em>. Jakarta: Badan Pusat Statistik.</li>
+        <li>World Bank. (2022). <em>Indonesia Digital Economy Report: Unlocking Digital Productivity</em>. Washington D.C.: The World Bank Group.</li>
+        <li>UNICEF Indonesia. (2022). <em>Are children really learning? Exploring foundational skills in the midst of a learning crisis</em>. Jakarta: UNICEF.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo-box">9</div>
+          <span style="color:#fff; font-family:var(--font-display); font-size:17px;">SDG 9 Indonesia</span>
+        </div>
+        <p>Proyek edukasi berbasis Design Thinking untuk mendukung pemahaman SDG 9 Target 9.c di Indonesia.</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="empathy.html">Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">Ideasi</a></li>
+          <li><a href="prototype.html">Prototipe</a></li>
+          <li><a href="testing.html">Pengujian</a></li>
+          <li><a href="reflection.html">Refleksi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Metodologi</h4>
+        <ul>
+          <li><a href="#">Design Thinking</a></li>
+          <li><a href="#">Human-Centered Design</a></li>
+          <li><a href="#">Participatory Research</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SDG 9 Indonesia. Proyek edukasi — tidak untuk tujuan komersial.</span>
+      <span style="color:rgba(255,255,255,0.4);">Tahap: Empati</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

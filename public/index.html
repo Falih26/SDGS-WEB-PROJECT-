@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SDG 9 — Industri, Inovasi & Infrastruktur</title>
+  <meta name="description" content="Sustainable Development Goals SDG 9: Industri, Inovasi, dan Infrastruktur — Target 9.c: Perluasan Akses TIK di Indonesia" />
+  <link rel="stylesheet" href="sdg.css" />
+  <style>
+    /* ---- Hero ---- */
+    .hero {
+      padding: 80px 0 72px;
+      background: linear-gradient(145deg, #FFF8F4 0%, #F7F4EF 50%, #EFF4FA 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(240,94,28,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(10,151,217,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 780px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 14px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 620px;
+      margin-top: 20px;
+    }
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+      box-shadow: 0 4px 12px rgba(240,94,28,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(240,94,28,0.38);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 14px;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: border-color 0.18s, color 0.18s, background 0.18s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+    /* ---- SDG Grid ---- */
+    .sdg-grid-section { padding: 72px 0; }
+    .sdg-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 8px;
+      margin-top: 36px;
+    }
+    .sdg-cell {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      padding: 6px 4px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sdg-cell:hover { transform: scale(1.07); box-shadow: 0 6px 20px rgba(0,0,0,0.18); z-index: 2; }
+    .sdg-cell .sdg-num {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: rgba(255,255,255,0.9);
+      line-height: 1;
+    }
+    .sdg-cell .sdg-label {
+      font-size: 6.5px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      line-height: 1.2;
+      margin-top: 3px;
+      letter-spacing: 0.2px;
+    }
+    .sdg-cell.sdg-active { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--accent), 0 6px 20px rgba(240,94,28,0.3); transform: scale(1.08); }
+    .sdg-cell.sdg-active::after {
+      content: '★';
+      position: absolute;
+      top: 4px; right: 5px;
+      font-size: 9px;
+      color: rgba(255,255,255,0.9);
+    }
+    /* SDG colors */
+    .sdg1  { background: #E5243B; } .sdg2  { background: #DDA63A; }
+    .sdg3  { background: #4C9F38; } .sdg4  { background: #C5192D; }
+    .sdg5  { background: #FF3A21; } .sdg6  { background: #26BDE2; }
+    .sdg7  { background: #FCC30B; } .sdg8  { background: #A21942; }
+    .sdg9  { background: #FD6925; } .sdg10 { background: #DD1367; }
+    .sdg11 { background: #FD9D24; } .sdg12 { background: #BF8B2E; }
+    .sdg13 { background: #3F7E44; } .sdg14 { background: #0A97D9; }
+    .sdg15 { background: #56C02B; } .sdg16 { background: #00689D; }
+    .sdg17 { background: #19486A; }
+    .sdg-legend {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .sdg-legend-dot { width: 10px; height: 10px; border-radius: 3px; background: #FD6925; }
+
+    /* ---- Overview ---- */
+    .overview-section { background: var(--bg-card); }
+    .overview-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .overview-visual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .overview-stat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+    }
+    .overview-stat-card .num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--accent);
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .overview-stat-card .lbl {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .highlight-box {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ---- Facts ---- */
+    .facts-section { background: var(--bg); }
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 36px;
+    }
+    .fact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.22s, transform 0.22s;
+    }
+    .fact-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .fact-card:nth-child(1) .fact-icon { background: var(--accent-soft); }
+    .fact-card:nth-child(2) .fact-icon { background: var(--blue-soft); }
+    .fact-card:nth-child(3) .fact-icon { background: var(--green-soft); }
+    .fact-card:nth-child(4) .fact-icon { background: var(--yellow-soft); }
+    .fact-card:nth-child(5) .fact-icon { background: #F0E6FA; }
+    .fact-card:nth-child(6) .fact-icon { background: var(--blue-soft); }
+    .fact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+    .fact-num {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .fact-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .fact-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+    /* ---- Target ---- */
+    .target-section { background: linear-gradient(135deg, #1C1917 0%, #2C2421 100%); color: #fff; }
+    .target-section .section-label { color: #FD9D60; }
+    .target-section .section-title { color: #fff; }
+    .target-section .lead { color: rgba(255,255,255,0.65); }
+    .target-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(240,94,28,0.15);
+      border: 1px solid rgba(240,94,28,0.3);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 32px;
+    }
+    .target-badge-num {
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-display);
+      font-size: 22px;
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .target-badge-text { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.4; }
+    .target-badge-text strong { color: #fff; display: block; font-size: 14px; }
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .challenge-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-sm);
+      padding: 24px;
+      transition: background 0.2s;
+    }
+    .challenge-card:hover { background: rgba(255,255,255,0.08); }
+    .challenge-card h4 { color: #fff; font-size: 15px; margin-bottom: 10px; margin-top: 12px; }
+    .challenge-card p { font-size: 13.5px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .challenge-icon { font-size: 26px; }
+    .why-box {
+      background: rgba(240,94,28,0.12);
+      border: 1px solid rgba(240,94,28,0.25);
+      border-radius: var(--radius);
+      padding: 32px 36px;
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .why-icon-big { font-size: 40px; }
+    .why-title { font-family: var(--font-display); font-size: 1.4rem; color: #fff; margin-bottom: 10px; }
+    .why-text { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* ---- Responsive overrides ---- */
+    @media (max-width: 900px) {
+      .sdg-grid { grid-template-columns: repeat(5, 1fr); }
+      .facts-grid { grid-template-columns: repeat(2, 1fr); }
+      .challenge-grid { grid-template-columns: 1fr; }
+      .overview-inner { grid-template-columns: 1fr; }
+      .why-box { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .sdg-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+      .facts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Announcement strip -->
+<div class="hero-strip">
+  🌐 Proyek Desain Berbasis SDG — Fokus: SDG 9 Target 9.c &nbsp;|&nbsp; Akses TIK untuk Semua
+</div>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-brand" href="index.html">
+      <div class="navbar-logo">9</div>
+      <span class="navbar-site-name">SDG 9 Indonesia</span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html" class="active">Beranda</a>
+      <a href="empathy.html">Empati</a>
+      <a href="ideation.html">Ideasi</a>
+      <a href="prototype.html">Prototipe</a>
+      <a href="testing.html">Pengujian</a>
+      <a href="reflection.html">Refleksi</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="active">Beranda</a>
+  <a href="empathy.html">Empati & Riset</a>
+  <a href="ideation.html">Ideasi</a>
+  <a href="prototype.html">Prototipe</a>
+  <a href="testing.html">Pengujian</a>
+  <a href="reflection.html">Refleksi</a>
+</div>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Tujuan Pembangunan Berkelanjutan
+      </div>
+      <h1 class="display-title">Sustainable<br /><em>Development Goals</em><br />(SDGs)</h1>
+      <p class="hero-sub">
+        SDGs adalah 17 tujuan global yang diadopsi oleh 193 negara anggota PBB pada tahun 2015 sebagai bagian dari Agenda 2030 untuk Pembangunan Berkelanjutan. Tujuan-tujuan ini dirancang untuk mengakhiri kemiskinan, melindungi planet, dan memastikan kesejahteraan bagi semua manusia pada tahun 2030.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#overview" class="btn-primary">
+          Pelajari Lebih Lanjut
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#target" class="btn-ghost">Lihat Target 9.c</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SDG GRID ==================== -->
+<section class="sdg-grid-section">
+  <div class="container">
+    <span class="section-label">17 Tujuan Global</span>
+    <h2 class="section-title">Semua SDG PBB</h2>
+    <div class="sdg-grid">
+      <a class="sdg-cell sdg1" title="Tanpa Kemiskinan"><span class="sdg-num">1</span><span class="sdg-label">Tanpa Kemiskinan</span></a>
+      <a class="sdg-cell sdg2" title="Tanpa Kelaparan"><span class="sdg-num">2</span><span class="sdg-label">Tanpa Kelaparan</span></a>
+      <a class="sdg-cell sdg3" title="Kehidupan Sehat"><span class="sdg-num">3</span><span class="sdg-label">Kehidupan Sehat</span></a>
+      <a class="sdg-cell sdg4" title="Pendidikan Berkualitas"><span class="sdg-num">4</span><span class="sdg-label">Pendidikan Berkualitas</span></a>
+      <a class="sdg-cell sdg5" title="Kesetaraan Gender"><span class="sdg-num">5</span><span class="sdg-label">Kesetaraan Gender</span></a>
+      <a class="sdg-cell sdg6" title="Air Bersih"><span class="sdg-num">6</span><span class="sdg-label">Air Bersih</span></a>
+      <a class="sdg-cell sdg7" title="Energi Bersih"><span class="sdg-num">7</span><span class="sdg-label">Energi Bersih</span></a>
+      <a class="sdg-cell sdg8" title="Pertumbuhan Ekonomi"><span class="sdg-num">8</span><span class="sdg-label">Pertumbuhan Ekonomi</span></a>
+      <a class="sdg-cell sdg9 sdg-active" title="SDG 9 – Fokus Kami" href="#target"><span class="sdg-num">9</span><span class="sdg-label">Industri & Inovasi</span></a>
+      <a class="sdg-cell sdg10" title="Berkurangnya Ketimpangan"><span class="sdg-num">10</span><span class="sdg-label">Kurangi Ketimpangan</span></a>
+      <a class="sdg-cell sdg11" title="Kota Berkelanjutan"><span class="sdg-num">11</span><span class="sdg-label">Kota Berkelanjutan</span></a>
+      <a class="sdg-cell sdg12" title="Konsumsi Bertanggung Jawab"><span class="sdg-num">12</span><span class="sdg-label">Konsumsi Bertanggung Jawab</span></a>
+      <a class="sdg-cell sdg13" title="Penanganan Iklim"><span class="sdg-num">13</span><span class="sdg-label">Penanganan Iklim</span></a>
+      <a class="sdg-cell sdg14" title="Ekosistem Laut"><span class="sdg-num">14</span><span class="sdg-label">Ekosistem Laut</span></a>
+      <a class="sdg-cell sdg15" title="Ekosistem Darat"><span class="sdg-num">15</span><span class="sdg-label">Ekosistem Darat</span></a>
+      <a class="sdg-cell sdg16" title="Perdamaian & Keadilan"><span class="sdg-num">16</span><span class="sdg-label">Perdamaian & Keadilan</span></a>
+      <a class="sdg-cell sdg17" title="Kemitraan Global"><span class="sdg-num">17</span><span class="sdg-label">Kemitraan Global</span></a>
+    </div>
+    <div class="sdg-legend">
+      <span class="sdg-legend-dot"></span>
+      SDG 9 — Fokus utama proyek ini
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OVERVIEW ==================== -->
+<section class="section overview-section" id="overview">
+  <div class="container">
+    <div class="overview-inner">
+      <div>
+        <span class="section-label">Gambaran Umum</span>
+        <h2 class="section-title">Mengapa SDGs Penting?</h2>
+        <p class="lead" style="margin-top:16px;">
+          SDGs merupakan cetak biru global untuk masa depan yang lebih baik dan berkelanjutan bagi semua orang. Di Indonesia, implementasi SDGs menjadi prioritas nasional yang tercermin dalam Rencana Pembangunan Jangka Menengah Nasional (RPJMN).
+        </p>
+        <div class="highlight-box" style="margin-top:20px;">
+          Indonesia, sebagai negara kepulauan terbesar di dunia dengan 17.000+ pulau dan populasi 270+ juta jiwa, menghadapi tantangan unik dalam mencapai tujuan-tujuan ini — terutama dalam hal konektivitas digital dan infrastruktur.
+        </div>
+        <div style="margin-top:24px; display:flex; flex-direction:column; gap:12px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:8px; height:8px; background:var(--accent); border-radius:50%; flex-shrink:0;"></div>
+            <span style="font-size:14px; color:var(--text-muted);">Indonesia menduduki peringkat ke-75 dari 166 negara dalam Indeks SDG 2023</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:8px; height:8px; background:var(--blue); border-radius:50%; flex-shrink:0;"></div>
+            <span style="font-size:14px; color:var(--text-muted);">Skor SDG Indonesia: 68,3 dari 100 (Sachs et al., 2023)</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="width:8px; height:8px; background:var(--green); border-radius:50%; flex-shrink:0;"></div>
+            <span style="font-size:14px; color:var(--text-muted);">Komitmen pemerintah melalui Perpres No. 111 Tahun 2022 tentang Pelaksanaan SDGs</span>
+          </div>
+        </div>
+      </div>
+      <div class="overview-visual">
+        <div class="overview-stat-card">
+          <div class="num">270<span style="font-size:1.2rem;">M+</span></div>
+          <div class="lbl">Penduduk Indonesia</div>
+        </div>
+        <div class="overview-stat-card">
+          <div class="num">68,3</div>
+          <div class="lbl">Skor SDG Nasional</div>
+        </div>
+        <div class="overview-stat-card">
+          <div class="num">17K+</div>
+          <div class="lbl">Pulau di Indonesia</div>
+        </div>
+        <div class="overview-stat-card">
+          <div class="num">2030</div>
+          <div class="lbl">Target Pencapaian Global</div>
+        </div>
+        <div class="overview-stat-card" style="grid-column:span 2; background:var(--accent-soft); border-color:rgba(240,94,28,0.2);">
+          <div class="num" style="font-size:1.6rem;">SDG 9</div>
+          <div class="lbl" style="font-size:13px; margin-top:4px;">Industri, Inovasi &amp; Infrastruktur</div>
+          <div style="margin-top:10px; font-size:12px; color:var(--accent); font-weight:600;">Fokus Proyek Ini</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FACTS & FIGURES ==================== -->
+<section class="section facts-section" id="facts">
+  <div class="container">
+    <span class="section-label">Data & Fakta</span>
+    <h2 class="section-title">SDG 9 di Indonesia: Fakta &amp; Angka</h2>
+    <p class="lead" style="margin-top:14px; max-width:580px;">
+      Berikut adalah data terkini mengenai kondisi akses TIK, penggunaan internet, dan infrastruktur digital di Indonesia.
+    </p>
+
+    <div class="facts-grid">
+      <!-- Fact 1 -->
+      <div class="fact-card">
+        <div class="fact-icon">📶</div>
+        <div class="fact-num" style="color:var(--accent);">78,19%</div>
+        <div class="fact-title">Penetrasi Internet</div>
+        <div class="fact-desc">Pada tahun 2023, sebanyak 78,19% penduduk Indonesia telah menggunakan internet — meningkat dari 73,7% pada tahun 2022 (APJII, 2023).</div>
+        <div class="progress-bar" style="margin-top:14px;">
+          <div class="progress-fill" style="width:78%;"></div>
+        </div>
+        <div style="font-size:11px; color:var(--text-light); margin-top:5px;">dari total populasi</div>
+      </div>
+
+      <!-- Fact 2 -->
+      <div class="fact-card">
+        <div class="fact-icon" style="background:var(--blue-soft);">🏙️</div>
+        <div class="fact-num" style="color:var(--blue);">86,3% vs 63,7%</div>
+        <div class="fact-title">Kesenjangan Kota-Desa</div>
+        <div class="fact-desc">Penetrasi internet di perkotaan mencapai 86,3%, sementara di pedesaan hanya 63,7% — mencerminkan kesenjangan digital yang signifikan (BPS, 2023).</div>
+      </div>
+
+      <!-- Fact 3 -->
+      <div class="fact-card">
+        <div class="fact-icon" style="background:var(--green-soft);">💸</div>
+        <div class="fact-num" style="color:var(--green);">Rp 200rb+</div>
+        <div class="fact-title">Biaya Internet Bulanan</div>
+        <div class="fact-desc">Rata-rata pengeluaran internet rumah tangga mencapai Rp 200.000–400.000 per bulan, menjadi beban berat bagi keluarga berpenghasilan rendah (ITU, 2023).</div>
+      </div>
+
+      <!-- Fact 4 -->
+      <div class="fact-card">
+        <div class="fact-icon" style="background:var(--yellow-soft);">📡</div>
+        <div class="fact-num" style="color:#C5950A;">12.548</div>
+        <div class="fact-title">Desa Blankspot</div>
+        <div class="fact-desc">Masih terdapat 12.548 desa yang belum terjangkau sinyal internet sama sekali, terutama di wilayah Indonesia Timur (Kominfo, 2022).</div>
+      </div>
+
+      <!-- Fact 5 -->
+      <div class="fact-card">
+        <div class="fact-icon" style="background:#F0E6FA;">📱</div>
+        <div class="fact-num" style="color:#7C3AED;">97,4%</div>
+        <div class="fact-title">Akses via Ponsel</div>
+        <div class="fact-desc">97,4% pengguna internet Indonesia mengakses internet melalui perangkat mobile/ponsel pintar, menunjukkan ketergantungan tinggi pada konektivitas seluler (APJII, 2023).</div>
+      </div>
+
+      <!-- Fact 6 -->
+      <div class="fact-card">
+        <div class="fact-icon" style="background:var(--blue-soft);">🏗️</div>
+        <div class="fact-num" style="color:var(--blue);">340Gbps</div>
+        <div class="fact-title">Kapasitas Jaringan Palapa Ring</div>
+        <div class="fact-desc">Proyek Palapa Ring menghubungkan 57 kota/kabupaten dengan kapasitas total 340 Gbps, namun manfaatnya belum merata ke seluruh daerah terpencil (Kominfo, 2023).</div>
+      </div>
+    </div>
+
+    <!-- References -->
+    <div class="references">
+      <h4>Referensi (Format APA)</h4>
+      <ol>
+        <li>Asosiasi Penyelenggara Jasa Internet Indonesia (APJII). (2023). <em>Laporan survei penetrasi internet Indonesia 2023</em>. Jakarta: APJII. Diakses dari https://apjii.or.id</li>
+        <li>Badan Pusat Statistik (BPS). (2023). <em>Statistik telekomunikasi Indonesia 2022</em>. Jakarta: BPS. Diakses dari https://www.bps.go.id</li>
+        <li>International Telecommunication Union (ITU). (2023). <em>Measuring digital development: Facts and figures 2023</em>. Geneva: ITU Publications.</li>
+        <li>Kementerian Komunikasi dan Informatika Republik Indonesia (Kominfo). (2022). <em>Peta jalan Indonesia digital 2021–2024</em>. Jakarta: Kominfo.</li>
+        <li>Kementerian Komunikasi dan Informatika Republik Indonesia (Kominfo). (2023). <em>Laporan tahunan infrastruktur digital nasional 2023</em>. Jakarta: Kominfo.</li>
+        <li>Sachs, J., Lafortune, G., Fuller, G., &amp; Drumm, E. (2023). <em>Implementing the SDG stimulus: Sustainable Development Report 2023</em>. Dublin: Dublin University Press. https://doi.org/10.25546/102957</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TARGET 9.C ==================== -->
+<section class="section target-section" id="target">
+  <div class="container">
+    <span class="section-label">Target Fokus</span>
+    <h2 class="section-title">Target 9.c: Perluasan Akses TIK</h2>
+
+    <div style="margin-top:28px; margin-bottom:36px;">
+      <div class="target-badge">
+        <div class="target-badge-num">9.c</div>
+        <div class="target-badge-text">
+          <strong>Definisi Resmi PBB</strong>
+          Secara signifikan meningkatkan akses terhadap teknologi informasi dan komunikasi dan berupaya menyediakan akses universal dan terjangkau internet di negara-negara berkembang pada tahun 2020.
+        </div>
+      </div>
+    </div>
+
+    <p class="lead" style="max-width:700px;">
+      Dalam bahasa sederhana: <strong style="color:#fff;">Target 9.c</strong> menuntut setiap orang — terlepas dari tempat tinggal atau kondisi ekonominya — harus memiliki akses ke internet yang terjangkau, cepat, dan andal sebagai hak dasar di era digital.
+    </p>
+
+    <div class="challenge-grid">
+      <div class="challenge-card">
+        <div class="challenge-icon">🌆🆚🌾</div>
+        <h4>Kesenjangan Kota-Desa</h4>
+        <p>Kualitas dan kecepatan internet di kota besar seperti Jakarta jauh melampaui daerah pedesaan. Di pulau-pulau terpencil, koneksi 4G bahkan masih menjadi kemewahan.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">💰</div>
+        <h4>Keterjangkauan Biaya</h4>
+        <p>Harga paket data dan langganan internet broadband masih relatif mahal dibandingkan daya beli masyarakat di daerah terpencil, membatasi adopsi layanan digital.</p>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon">🏗️</div>
+        <h4>Infrastruktur Tidak Merata</h4>
+        <p>Pembangunan infrastruktur TIK masih terkonsentrasi di Pulau Jawa dan kota-kota besar, sementara wilayah Indonesia Timur masih sangat kekurangan infrastruktur jaringan.</p>
+      </div>
+    </div>
+
+    <!-- Why this matters -->
+    <div class="why-box">
+      <div class="why-icon-big">💡</div>
+      <div>
+        <div class="why-title">Mengapa Ini Penting?</div>
+        <p class="why-text">
+          Akses internet bukan sekadar kemudahan teknologi — ini adalah <strong style="color:#fff;">jembatan menuju peluang</strong>. Ketika seorang petani di Sulawesi bisa mengakses informasi harga pasar secara real-time, ia bisa menjual hasil panen dengan harga yang adil. Ketika pelajar di Papua memiliki akses ke platform pendidikan online, ia mendapat kesempatan yang sama dengan pelajar di Jakarta. Tanpa akses digital yang merata, ketimpangan sosial-ekonomi akan terus melebar, dan kelompok yang paling rentan akan semakin tertinggal dalam era digital yang terus berkembang.
+        </p>
+        <div style="margin-top:16px; display:flex; gap:16px; flex-wrap:wrap;">
+          <span class="badge badge-orange">Pendidikan Digital</span>
+          <span class="badge badge-blue">Ekonomi Inklusif</span>
+          <span class="badge badge-green">Kesehatan Jarak Jauh</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo-box">9</div>
+          <span style="color:#fff; font-family:var(--font-display); font-size:17px;">SDG 9 Indonesia</span>
+        </div>
+        <p>Proyek ini dibuat untuk mendukung pemahaman dan implementasi Tujuan Pembangunan Berkelanjutan SDG 9 — khususnya Target 9.c mengenai perluasan akses TIK di Indonesia.</p>
+        <p style="margin-top:12px; font-size:12px;">Sumber: PBB, APJII, BPS, Kominfo, ITU &amp; berbagai publikasi resmi.</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="empathy.html">Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">Ideasi</a></li>
+          <li><a href="prototype.html">Prototipe</a></li>
+          <li><a href="testing.html">Pengujian</a></li>
+          <li><a href="reflection.html">Refleksi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Referensi Utama</h4>
+        <ul>
+          <li><a href="#">PBB — sdgs.un.org</a></li>
+          <li><a href="#">APJII — apjii.or.id</a></li>
+          <li><a href="#">BPS — bps.go.id</a></li>
+          <li><a href="#">Kominfo — kominfo.go.id</a></li>
+          <li><a href="#">ITU — itu.int</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Proyek SDG 9 Indonesia. Dibuat untuk tujuan edukasi.</span>
+      <span style="color:rgba(255,255,255,0.4);">SDGs — Agenda 2030</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const m = document.getElementById('mobileMenu');
+    m.classList.toggle('open');
+  }
+  // Animate progress bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.width;
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.progress-fill').forEach(el => {
+    const w = el.style.width;
+    el.dataset.width = w;
+    el.style.width = '0';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

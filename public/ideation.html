@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ideasi — SDG 9 Indonesia</title>
+  <meta name="description" content="Ideasi solusi kreatif untuk meningkatkan akses TIK dan internet terjangkau di daerah terpencil Indonesia." />
+  <link rel="stylesheet" href="sdg.css" />
+  <style>
+    .idea-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .idea-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+    .idea-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .idea-card:hover::after { opacity: 1; }
+    .idea-card:nth-child(1)::after { background: var(--accent); }
+    .idea-card:nth-child(2)::after { background: var(--blue); }
+    .idea-card:nth-child(3)::after { background: var(--green); }
+    .idea-card:nth-child(4)::after { background: #7C3AED; }
+    .idea-card:nth-child(5)::after { background: var(--yellow); }
+    .idea-card:nth-child(6)::after { background: #E11D48; }
+
+    .idea-number {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--border);
+      line-height: 1;
+      pointer-events: none;
+      transition: color 0.2s;
+    }
+    .idea-card:hover .idea-number { color: rgba(240,94,28,0.1); }
+    .idea-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    .idea-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 10px; }
+    .idea-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; flex-grow: 1; }
+    .idea-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+    .idea-tags span {
+      font-size: 11.5px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .idea-features { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .idea-features h5 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-light); margin-bottom: 10px; }
+    .idea-feature {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--text-muted);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--bg);
+    }
+    .idea-feature:last-child { border: none; }
+    .idea-feature-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+    .feasibility-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 32px;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .feasibility-table th {
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .feasibility-table td {
+      padding: 14px 20px;
+      font-size: 13.5px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .feasibility-table tr:last-child td { border: none; }
+    .feasibility-table tr:hover td { background: #FAFAFA; }
+    .rating { display: flex; gap: 3px; }
+    .rating-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-filled { background: var(--accent); }
+    .dot-empty { background: var(--border); }
+
+    .hmw-section {
+      background: linear-gradient(135deg, #EFF4FA 0%, #F7F4EF 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin: 48px 0;
+    }
+    .hmw-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 20px; }
+    .hmw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }
+    .hmw-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
+      display: flex; align-items: flex-start; gap: 10px;
+    }
+    .hmw-q { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .hmw-grid { grid-template-columns: 1fr; }
+      .feasibility-table { font-size: 12px; }
+      .feasibility-table th, .feasibility-table td { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-strip">
+  Tahap 2 dari 5 — Ideasi: Menemukan Solusi Inovatif
+</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-brand" href="index.html">
+      <div class="navbar-logo">9</div>
+      <span class="navbar-site-name">SDG 9 Indonesia</span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html">Beranda</a>
+      <a href="empathy.html">Empati</a>
+      <a href="ideation.html" class="active">Ideasi</a>
+      <a href="prototype.html">Prototipe</a>
+      <a href="testing.html">Pengujian</a>
+      <a href="reflection.html">Refleksi</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="empathy.html">Empati &amp; Riset</a>
+  <a href="ideation.html" class="active">Ideasi</a>
+  <a href="prototype.html">Prototipe</a>
+  <a href="testing.html">Pengujian</a>
+  <a href="reflection.html">Refleksi</a>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:36px;height:36px;background:var(--accent-soft);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">💡</div>
+      <span class="section-label" style="margin:0;">Langkah 2: Ideasi</span>
+    </div>
+    <h1 class="display-title">Eksplorasi Solusi Kreatif</h1>
+    <p class="lead" style="margin-top:16px;">
+      Berdasarkan temuan empati, kami menghasilkan berbagai ide solusi melalui sesi brainstorming, analisis komparatif, dan diskusi multistakeholder. Tidak ada ide yang terlalu besar atau terlalu kecil pada tahap ini.
+    </p>
+  </div>
+</div>
+
+<!-- ==================== HMW ==================== -->
+<section class="section-sm">
+  <div class="container">
+    <div class="hmw-section">
+      <span class="section-label">Pertanyaan Panduan</span>
+      <div class="hmw-title">Bagaimana Kita Bisa... (How Might We)?</div>
+      <p style="font-size:14px; color:var(--text-muted); max-width:600px;">
+        Pertanyaan "Bagaimana Kita Bisa" (HMW) membantu mengubah masalah menjadi peluang inovasi yang actionable dan berorientasi pada solusi.
+      </p>
+      <div class="hmw-grid">
+        <div class="hmw-item"><span class="hmw-q">HMW</span> menyediakan internet yang terjangkau bagi keluarga berpenghasilan rendah di pedesaan?</div>
+        <div class="hmw-item"><span class="hmw-q">HMW</span> membangun infrastruktur jaringan di daerah terpencil secara efisien dan berkelanjutan?</div>
+        <div class="hmw-item"><span class="hmw-q">HMW</span> meningkatkan literasi digital masyarakat tanpa memerlukan instruktur fisik di setiap desa?</div>
+        <div class="hmw-item"><span class="hmw-q">HMW</span> menciptakan model bisnis yang menguntungkan sekaligus melayani daerah yang kurang diminati operator besar?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== IDEA CARDS ==================== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <span class="section-label">Gagasan Solusi</span>
+    <h2 class="section-title">Ide-Ide Terpilih</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:36px; max-width:600px;">
+      Dari lebih dari 30 ide awal yang dihasilkan, berikut adalah enam solusi paling menjanjikan yang telah melalui proses penyaringan berdasarkan dampak, keterjangkauan, dan kelayakan implementasi.
+    </p>
+
+    <div class="grid-3">
+      <!-- Idea 1 -->
+      <div class="idea-card">
+        <span class="idea-number">01</span>
+        <div class="idea-icon" style="background:var(--accent-soft);">📡</div>
+        <div class="idea-title">WiFi Komunitas Berbasis Desa</div>
+        <div class="idea-desc">
+          Membangun jaringan WiFi berbagi (shared WiFi) di pusat desa seperti balai desa, masjid, atau sekolah. Biaya dibagi bersama oleh seluruh warga, menjadikannya sangat terjangkau per kepala.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot"></span>Satu koneksi broadband untuk 50–200 keluarga</div>
+          <div class="idea-feature"><span class="idea-feature-dot"></span>Manajemen jaringan oleh kader desa terlatih</div>
+          <div class="idea-feature"><span class="idea-feature-dot"></span>Voucher akses untuk pengelolaan biaya</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:var(--accent-soft); color:var(--accent);">Infrastruktur</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">Komunitas</span>
+        </div>
+      </div>
+
+      <!-- Idea 2 -->
+      <div class="idea-card">
+        <span class="idea-number">02</span>
+        <div class="idea-icon" style="background:var(--blue-soft);">🏢</div>
+        <div class="idea-title">ISP Lokal Berbiaya Rendah</div>
+        <div class="idea-desc">
+          Mendorong tumbuhnya Internet Service Provider (ISP) lokal skala kecil yang fokus melayani daerah yang diabaikan operator besar. Didukung subsidi pemerintah dan regulasi yang dipermudah.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--blue);"></span>Harga paket mulai Rp 50.000/bulan</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--blue);"></span>Izin usaha yang disederhanakan untuk ISP lokal</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--blue);"></span>Subsidi CAPEX dari APBN/APBD</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:var(--blue-soft); color:var(--blue);">Kebijakan</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">Bisnis</span>
+        </div>
+      </div>
+
+      <!-- Idea 3 -->
+      <div class="idea-card">
+        <span class="idea-number">03</span>
+        <div class="idea-icon" style="background:var(--green-soft);">📚</div>
+        <div class="idea-title">Platform Pendidikan Digital Offline</div>
+        <div class="idea-desc">
+          Aplikasi pendidikan yang dapat diunduh sekali dan digunakan tanpa internet berulang kali. Konten diperbarui secara periodik saat ada koneksi. Tersedia dalam bahasa Indonesia dan beberapa bahasa daerah.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--green);"></span>Mode offline penuh untuk semua materi</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--green);"></span>Dukungan bahasa daerah (Jawa, Sunda, dll.)</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--green);"></span>Gamifikasi untuk meningkatkan keterlibatan</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:var(--green-soft); color:var(--green);">Pendidikan</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">Offline-First</span>
+        </div>
+      </div>
+
+      <!-- Idea 4 -->
+      <div class="idea-card">
+        <span class="idea-number">04</span>
+        <div class="idea-icon" style="background:#F3E8FF;">🛸</div>
+        <div class="idea-title">Internet via Satelit LEO Bersubsidi</div>
+        <div class="idea-desc">
+          Memanfaatkan teknologi satelit Low Earth Orbit (LEO) seperti Starlink dengan harga terjangkau melalui subsidi pemerintah. Ideal untuk daerah yang infrastruktur darat tidak memungkinkan.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#7C3AED;"></span>Kecepatan 100-200 Mbps di daerah terpencil</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#7C3AED;"></span>Tidak memerlukan infrastruktur darat</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#7C3AED;"></span>Subsidi perangkat dan biaya berlangganan</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:#F3E8FF; color:#7C3AED;">Teknologi</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">Inovatif</span>
+        </div>
+      </div>
+
+      <!-- Idea 5 -->
+      <div class="idea-card">
+        <span class="idea-number">05</span>
+        <div class="idea-icon" style="background:var(--yellow-soft);">🚌</div>
+        <div class="idea-title">Pusat Digital Keliling (Mobile Digicenter)</div>
+        <div class="idea-desc">
+          Kendaraan yang dilengkapi perangkat komputer, hotspot internet satelit, dan fasilitator digital yang berkeliling ke desa-desa terpencil secara rutin untuk memberikan akses dan pelatihan digital.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--yellow);"></span>Jadwal kunjungan rutin ke setiap desa</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--yellow);"></span>Komputer, printer, dan akses internet</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:var(--yellow);"></span>Pelatihan e-government dan literasi digital</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:var(--yellow-soft); color:#A07000;">Layanan</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">Mobile</span>
+        </div>
+      </div>
+
+      <!-- Idea 6 -->
+      <div class="idea-card">
+        <span class="idea-number">06</span>
+        <div class="idea-icon" style="background:#FFE4E6;">🤝</div>
+        <div class="idea-title">Program Kader Digital Desa</div>
+        <div class="idea-desc">
+          Melatih pemuda desa sebagai "Kader Digital" yang berperan sebagai ujung tombak literasi digital. Mereka membantu warga menggunakan layanan digital, dari e-KTP hingga marketplace UMKM.
+        </div>
+        <div class="idea-features">
+          <h5>Fitur Utama</h5>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#E11D48;"></span>Pelatihan 3 bulan intensif berbasis praktik</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#E11D48;"></span>Insentif dari dana desa</div>
+          <div class="idea-feature"><span class="idea-feature-dot" style="background:#E11D48;"></span>Jaringan peer-to-peer antar kader desa</div>
+        </div>
+        <div class="idea-tags">
+          <span style="background:#FFE4E6; color:#E11D48;">Komunitas</span>
+          <span style="background:var(--bg); color:var(--text-muted); border:1px solid var(--border);">SDM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TABEL EVALUASI ==================== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <span class="section-label">Evaluasi Ide</span>
+    <h2 class="section-title">Perbandingan Kelayakan Solusi</h2>
+    <p class="lead" style="margin-top:12px;">
+      Setiap ide dievaluasi berdasarkan empat dimensi kritis: dampak, keterjangkauan, kecepatan implementasi, dan potensi skalabilitas.
+    </p>
+
+    <div style="overflow-x:auto;">
+      <table class="feasibility-table">
+        <thead>
+          <tr>
+            <th>Solusi</th>
+            <th>Dampak</th>
+            <th>Keterjangkauan</th>
+            <th>Kecepatan</th>
+            <th>Skalabilitas</th>
+            <th>Prioritas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>WiFi Komunitas Desa</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><span class="badge badge-orange">Tinggi</span></td>
+          </tr>
+          <tr>
+            <td><strong>ISP Lokal Berbiaya Rendah</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><span class="badge badge-blue">Sedang</span></td>
+          </tr>
+          <tr>
+            <td><strong>Platform Pendidikan Offline</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><span class="badge badge-orange">Tinggi</span></td>
+          </tr>
+          <tr>
+            <td><strong>Internet Satelit LEO Bersubsidi</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><span class="badge badge-green">Jangka Panjang</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pusat Digital Keliling</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><span class="badge badge-blue">Sedang</span></td>
+          </tr>
+          <tr>
+            <td><strong>Kader Digital Desa</strong></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-empty"></span></div></td>
+            <td><div class="rating"><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span><span class="rating-dot dot-filled"></span></div></td>
+            <td><span class="badge badge-orange">Tinggi</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Conclusion box -->
+    <div style="background:var(--bg-card); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:24px 28px; margin-top:32px;">
+      <h4 style="font-family:var(--font-display); font-size:1.1rem; margin-bottom:10px;">Solusi Terpilih untuk Prototipe</h4>
+      <p style="font-size:14px; color:var(--text-muted); line-height:1.7;">
+        Berdasarkan evaluasi, <strong style="color:var(--text);">kombinasi WiFi Komunitas Desa + Platform Pendidikan Offline + Program Kader Digital</strong> dipilih sebagai pendekatan terpadu yang akan dikembangkan ke tahap prototipe. Ketiga komponen ini saling melengkapi dan dapat diimplementasikan secara bertahap mulai dari yang paling mendesak.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo-box">9</div>
+          <span style="color:#fff; font-family:var(--font-display); font-size:17px;">SDG 9 Indonesia</span>
+        </div>
+        <p>Proyek edukasi berbasis Design Thinking untuk mendukung SDG 9 Target 9.c di Indonesia.</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="empathy.html">Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">Ideasi</a></li>
+          <li><a href="prototype.html">Prototipe</a></li>
+          <li><a href="testing.html">Pengujian</a></li>
+          <li><a href="reflection.html">Refleksi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tahapan Proyek</h4>
+        <ul>
+          <li><a href="empathy.html">1. Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">2. Ideasi</a></li>
+          <li><a href="prototype.html">3. Prototipe</a></li>
+          <li><a href="testing.html">4. Pengujian</a></li>
+          <li><a href="reflection.html">5. Refleksi</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SDG 9 Indonesia. Proyek edukasi — tidak untuk tujuan komersial.</span>
+      <span style="color:rgba(255,255,255,0.4);">Tahap: Ideasi</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

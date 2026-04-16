@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prototipe — SDG 9 Indonesia</title>
+  <meta name="description" content="Prototipe solusi: DesaNet — platform digital terpadu untuk konektivitas dan pemberdayaan masyarakat desa Indonesia." />
+  <link rel="stylesheet" href="sdg.css" />
+  <style>
+    .mockup-frame {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .mockup-titlebar {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .mockup-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red { background: #FF5F56; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #27C93F; }
+    .mockup-url { flex: 1; background: var(--border); border-radius: 4px; padding: 4px 12px; font-size: 11px; color: var(--text-muted); margin-left: 8px; }
+
+    /* Mockup content blocks */
+    .mockup-body { padding: 24px; }
+    .mockup-hero-sim {
+      background: linear-gradient(135deg, #FD6925, #F05E1C);
+      border-radius: var(--radius-sm);
+      padding: 28px;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .mockup-hero-sim h3 { font-family: var(--font-display); font-size: 1.4rem; }
+    .mockup-hero-sim p { font-size: 12px; opacity: 0.85; margin-top: 8px; }
+    .mockup-nav-sim {
+      display: flex; gap: 8px; margin-bottom: 20px;
+    }
+    .mockup-nav-btn {
+      padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 600;
+    }
+    .mockup-nav-btn.active { background: var(--accent); color: #fff; }
+    .mockup-nav-btn:not(.active) { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .mockup-cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .mockup-mini-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 12px;
+    }
+    .mockup-mini-card .mc-icon { font-size: 18px; margin-bottom: 8px; }
+    .mockup-mini-card .mc-title { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .mockup-mini-card .mc-sub { font-size: 10px; color: var(--text-muted); line-height: 1.4; }
+
+    /* Mobile mockup */
+    .phone-frame {
+      width: 220px;
+      border: 3px solid var(--text);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .phone-notch {
+      width: 70px; height: 18px;
+      background: var(--text);
+      border-radius: 0 0 12px 12px;
+      margin: 0 auto;
+    }
+    .phone-screen { background: var(--bg); padding: 16px; }
+    .phone-status { display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); margin-bottom: 12px; }
+    .phone-hero { background: var(--accent); border-radius: 12px; padding: 16px; color: #fff; margin-bottom: 12px; }
+    .phone-hero p { font-size: 11px; font-weight: 700; }
+    .phone-hero span { font-size: 9px; opacity: 0.8; display: block; margin-top: 3px; }
+    .phone-menu { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .phone-menu-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; text-align: center; }
+    .phone-menu-item .pmi-icon { font-size: 16px; }
+    .phone-menu-item .pmi-label { font-size: 8.5px; color: var(--text-muted); margin-top: 4px; }
+    .phone-bar { height: 3px; background: var(--border); border-radius: 3px; margin: 0 0 8px; }
+    .phone-bar-fill { height: 100%; border-radius: 3px; background: var(--accent); }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      padding: 40px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .feature-row:last-child { border: none; }
+    .feature-row.reverse { direction: rtl; }
+    .feature-row.reverse > * { direction: ltr; }
+    .feature-text {}
+    .feature-text h3 { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 14px; }
+    .feature-text p { font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+    .feature-list { display: flex; flex-direction: column; gap: 8px; }
+    .feature-list-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--text); }
+    .feature-list-item svg { flex-shrink: 0; }
+    .feature-visual {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .feature-visual-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-align: center; }
+
+    .arch-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+    .arch-layer {
+      background: var(--bg-card);
+      padding: 20px;
+    }
+    .arch-layer h5 { font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+    .arch-item { font-size: 12.5px; color: var(--text); padding: 5px 0; border-bottom: 1px dashed var(--border); }
+    .arch-item:last-child { border: none; }
+
+    @media (max-width: 768px) {
+      .feature-row { grid-template-columns: 1fr; }
+      .feature-row.reverse { direction: ltr; }
+      .mockup-cards-row { grid-template-columns: repeat(2, 1fr); }
+      .arch-box { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-strip">
+  Tahap 3 dari 5 — Prototipe: Merancang Solusi DesaNet
+</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-brand" href="index.html">
+      <div class="navbar-logo">9</div>
+      <span class="navbar-site-name">SDG 9 Indonesia</span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html">Beranda</a>
+      <a href="empathy.html">Empati</a>
+      <a href="ideation.html">Ideasi</a>
+      <a href="prototype.html" class="active">Prototipe</a>
+      <a href="testing.html">Pengujian</a>
+      <a href="reflection.html">Refleksi</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="empathy.html">Empati &amp; Riset</a>
+  <a href="ideation.html">Ideasi</a>
+  <a href="prototype.html" class="active">Prototipe</a>
+  <a href="testing.html">Pengujian</a>
+  <a href="reflection.html">Refleksi</a>
+</div>
+
+<!-- Page Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:36px;height:36px;background:var(--accent-soft);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🛠️</div>
+      <span class="section-label" style="margin:0;">Langkah 3: Prototipe</span>
+    </div>
+    <h1 class="display-title">DesaNet — Platform Digital Terpadu</h1>
+    <p class="lead" style="margin-top:16px; max-width:680px;">
+      DesaNet adalah ekosistem digital berbasis komunitas yang mengintegrasikan koneksi WiFi desa, platform pembelajaran offline-first, dan sistem manajemen Kader Digital dalam satu platform yang mudah digunakan.
+    </p>
+    <div style="margin-top:24px; display:flex; gap:12px; flex-wrap:wrap;">
+      <span class="badge badge-orange">Offline-First</span>
+      <span class="badge badge-blue">Mobile-Friendly</span>
+      <span class="badge badge-green">Multi-Bahasa</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MOCKUP DESKTOP ==================== -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Mockup Antarmuka</span>
+    <h2 class="section-title">Tampilan Aplikasi DesaNet</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:36px;">
+      Berikut adalah representasi visual antarmuka prototipe DesaNet — dirancang dengan prinsip kesederhanaan, aksesibilitas, dan relevansi bagi pengguna di daerah terpencil.
+    </p>
+
+    <!-- Desktop mockup -->
+    <div class="mockup-frame" style="margin-bottom:32px;">
+      <div class="mockup-titlebar">
+        <span class="mockup-dot dot-red"></span>
+        <span class="mockup-dot dot-yellow"></span>
+        <span class="mockup-dot dot-green"></span>
+        <div class="mockup-url">desanet.id/beranda</div>
+      </div>
+      <div class="mockup-body">
+        <!-- Simulated nav bar inside app -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:28px;height:28px;background:var(--accent);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--font-display);font-size:12px;">DN</div>
+            <span style="font-size:14px;font-weight:600;color:var(--text);">DesaNet</span>
+          </div>
+          <div class="mockup-nav-sim">
+            <div class="mockup-nav-btn active">Beranda</div>
+            <div class="mockup-nav-btn">Belajar</div>
+            <div class="mockup-nav-btn">Komunitas</div>
+            <div class="mockup-nav-btn">Kader</div>
+          </div>
+          <div style="width:28px;height:28px;background:var(--accent-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;">👤</div>
+        </div>
+        <!-- Hero block inside mockup -->
+        <div class="mockup-hero-sim">
+          <h3>Selamat datang, Pak Sumarno</h3>
+          <p>Desa Wonosari | Sinyal: Kuat (WiFi Desa) | Status Kader: Aktif</p>
+          <div style="display:flex;gap:8px;margin-top:14px;">
+            <div style="background:rgba(255,255,255,0.2);border-radius:6px;padding:6px 12px;font-size:11px;">Akses Offline: Aktif</div>
+            <div style="background:rgba(255,255,255,0.2);border-radius:6px;padding:6px 12px;font-size:11px;">Koneksi: 8,4 Mbps</div>
+          </div>
+        </div>
+        <!-- Mini cards grid -->
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px;">Layanan Cepat</div>
+        <div class="mockup-cards-row">
+          <div class="mockup-mini-card"><div class="mc-icon">📚</div><div class="mc-title">Belajar Digital</div><div class="mc-sub">14 modul tersedia offline</div></div>
+          <div class="mockup-mini-card"><div class="mc-icon">💰</div><div class="mc-title">Info Harga Pasar</div><div class="mc-sub">Update setiap hari</div></div>
+          <div class="mockup-mini-card"><div class="mc-icon">🏥</div><div class="mc-title">Telemedicine</div><div class="mc-sub">Konsultasi jarak jauh</div></div>
+          <div class="mockup-mini-card"><div class="mc-icon">🛒</div><div class="mc-title">Pasar UMKM</div><div class="mc-sub">Jual produk lokal</div></div>
+          <div class="mockup-mini-card"><div class="mc-icon">📄</div><div class="mc-title">Layanan Desa</div><div class="mc-sub">Surat &amp; administrasi</div></div>
+          <div class="mockup-mini-card"><div class="mc-icon">👥</div><div class="mc-title">Forum Desa</div><div class="mc-sub">Diskusi komunitas</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile mockup row -->
+    <div style="display:flex; gap:32px; align-items:center; flex-wrap:wrap;">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="phone-status"><span>09:41</span><span>WiFi Desa 4G</span></div>
+          <div class="phone-hero">
+            <p>DesaNet</p>
+            <span>Desa Wonosari — Offline Ready</span>
+          </div>
+          <div class="phone-menu">
+            <div class="phone-menu-item"><div class="pmi-icon">📚</div><div class="pmi-label">Belajar</div></div>
+            <div class="phone-menu-item"><div class="pmi-icon">💰</div><div class="pmi-label">Harga Pasar</div></div>
+            <div class="phone-menu-item"><div class="pmi-icon">🛒</div><div class="pmi-label">UMKM</div></div>
+            <div class="phone-menu-item"><div class="pmi-icon">📄</div><div class="pmi-label">Layanan</div></div>
+          </div>
+          <div style="font-size:9px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">MODUL TERPOPULER</div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;">
+            <div style="font-size:10px;font-weight:600;color:var(--text);">Cara Jual di Tokopedia</div>
+            <div class="phone-bar" style="margin-top:6px;"><div class="phone-bar-fill" style="width:60%;"></div></div>
+            <div style="font-size:8px;color:var(--text-muted);">60% selesai</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;font-weight:600;color:var(--text);">Dasar-Dasar Internet Sehat</div>
+            <div class="phone-bar" style="margin-top:6px;"><div class="phone-bar-fill" style="width:30%;"></div></div>
+            <div style="font-size:8px;color:var(--text-muted);">30% selesai</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:280px;">
+        <h3 style="font-family:var(--font-display); font-size:1.4rem; margin-bottom:12px;">Dirancang untuk Koneksi Rendah</h3>
+        <p style="font-size:14px; color:var(--text-muted); line-height:1.7; margin-bottom:20px;">
+          DesaNet dioptimalkan agar bekerja dengan koneksi seburuk 128kbps. Semua materi utama dapat diunduh saat ada koneksi dan digunakan tanpa internet sepenuhnya. Aplikasi menggunakan Progressive Web App (PWA) sehingga bisa diinstal dari browser tanpa Play Store.
+        </p>
+        <div class="feature-list">
+          <div class="feature-list-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Ukuran aplikasi kurang dari 5MB
+          </div>
+          <div class="feature-list-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Bekerja di ponsel Android lama (Android 6+)
+          </div>
+          <div class="feature-list-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Mode offline menyimpan hingga 2GB konten
+          </div>
+          <div class="feature-list-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Antarmuka tersedia dalam Bahasa Indonesia &amp; 5 bahasa daerah
+          </div>
+          <div class="feature-list-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Sinkronisasi otomatis ketika koneksi tersedia
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FITUR UTAMA ==================== -->
+<section class="section" style="padding-top:0; background:var(--bg-card); border-top:1px solid var(--border);">
+  <div class="container">
+    <span class="section-label">Fitur Utama</span>
+    <h2 class="section-title">Komponen DesaNet</h2>
+
+    <div style="margin-top:40px;">
+      <!-- Feature 1 -->
+      <div class="feature-row">
+        <div class="feature-text">
+          <span class="badge badge-orange" style="margin-bottom:14px;">Modul 1</span>
+          <h3>WiFi Manager Desa</h3>
+          <p>Sistem manajemen jaringan WiFi komunal yang memungkinkan pengelolaan akses, pemantauan penggunaan, dan distribusi voucher internet oleh Kader Digital yang ditunjuk oleh desa.</p>
+          <div class="feature-list">
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard monitoring real-time penggunaan bandwidth</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sistem voucher untuk distribusi akses yang adil</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Laporan keuangan otomatis untuk BUMDes</div>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div style="width:100%;max-width:280px;">
+            <div style="background:var(--accent);border-radius:8px;padding:16px;color:#fff;margin-bottom:12px;">
+              <div style="font-size:10px;opacity:0.8;margin-bottom:4px;">BANDWIDTH AKTIF</div>
+              <div style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:-1px;">8.4 Mbps</div>
+              <div style="font-size:11px;opacity:0.75;margin-top:4px;">47 pengguna aktif</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--accent);">128</div>
+                <div style="font-size:10px;color:var(--text-muted);">Total User</div>
+              </div>
+              <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center;">
+                <div style="font-size:1.2rem;font-family:var(--font-display);color:var(--blue);">94%</div>
+                <div style="font-size:10px;color:var(--text-muted);">Uptime</div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-visual-label">Mockup: Dashboard WiFi Manager</div>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-row reverse">
+        <div class="feature-text">
+          <span class="badge badge-blue" style="margin-bottom:14px;">Modul 2</span>
+          <h3>Akademi Digital Desa</h3>
+          <p>Platform pembelajaran terstruktur dengan kurikulum yang relevan untuk kebutuhan masyarakat desa — dari keterampilan digital dasar hingga materi wirausaha online dan pertanian cerdas.</p>
+          <div class="feature-list">
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>50+ modul pembelajaran dalam format video dan teks</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sertifikat digital yang diakui oleh Kominfo</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sistem gamifikasi: poin, badge, dan leaderboard desa</div>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div style="width:100%;max-width:280px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:10px;">Kategori Modul</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="background:var(--accent-soft);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:16px;">💻</span>
+                <div><div style="font-size:12px;font-weight:600;color:var(--text);">Literasi Digital Dasar</div><div style="font-size:10px;color:var(--text-muted);">8 modul • 4 jam</div></div>
+                <div style="margin-left:auto;font-size:10px;color:var(--accent);font-weight:600;">Gratis</div>
+              </div>
+              <div style="background:var(--blue-soft);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:16px;">🛒</span>
+                <div><div style="font-size:12px;font-weight:600;color:var(--text);">Jualan Online</div><div style="font-size:10px;color:var(--text-muted);">12 modul • 6 jam</div></div>
+                <div style="margin-left:auto;font-size:10px;color:var(--blue);font-weight:600;">Gratis</div>
+              </div>
+              <div style="background:var(--green-soft);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;">
+                <span style="font-size:16px;">🌾</span>
+                <div><div style="font-size:12px;font-weight:600;color:var(--text);">Pertanian Digital</div><div style="font-size:10px;color:var(--text-muted);">10 modul • 5 jam</div></div>
+                <div style="margin-left:auto;font-size:10px;color:var(--green);font-weight:600;">Gratis</div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-visual-label">Mockup: Katalog Modul Akademi</div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-row">
+        <div class="feature-text">
+          <span class="badge badge-green" style="margin-bottom:14px;">Modul 3</span>
+          <h3>Sistem Kader Digital</h3>
+          <p>Portal khusus untuk manajemen Kader Digital desa — mencakup modul pelatihan, laporan aktivitas, koordinasi dengan pemerintah daerah, dan monitoring dampak program.</p>
+          <div class="feature-list">
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Profil digital dan portfolio Kader</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sistem pelaporan kegiatan digital harian/mingguan</div>
+            <div class="feature-list-item"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Forum koordinasi antar-Kader se-kabupaten</div>
+          </div>
+        </div>
+        <div class="feature-visual">
+          <div style="width:100%;max-width:280px;background:var(--bg);border-radius:10px;padding:16px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+              <div style="width:36px;height:36px;background:var(--green-soft);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;">👨‍💻</div>
+              <div><div style="font-size:12px;font-weight:600;color:var(--text);">Ahmad Fauzi</div><div style="font-size:10px;color:var(--text-muted);">Kader Utama • Desa Wonosari</div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+              <div style="text-align:center;background:var(--bg-card);border-radius:7px;padding:8px;border:1px solid var(--border);">
+                <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--green);">48</div>
+                <div style="font-size:9px;color:var(--text-muted);">Warga Dibantu</div>
+              </div>
+              <div style="text-align:center;background:var(--bg-card);border-radius:7px;padding:8px;border:1px solid var(--border);">
+                <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--accent);">12</div>
+                <div style="font-size:9px;color:var(--text-muted);">Sesi Pelatihan</div>
+              </div>
+              <div style="text-align:center;background:var(--bg-card);border-radius:7px;padding:8px;border:1px solid var(--border);">
+                <div style="font-family:var(--font-display);font-size:1.1rem;color:var(--blue);">4.8</div>
+                <div style="font-size:9px;color:var(--text-muted);">Rating</div>
+              </div>
+            </div>
+            <div style="background:var(--green-soft);border-radius:7px;padding:8px 12px;font-size:11px;color:var(--green);font-weight:600;text-align:center;">Level 3 — Kader Berpengalaman</div>
+          </div>
+          <div class="feature-visual-label">Mockup: Profil Kader Digital</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ARSITEKTUR TEKNIS ==================== -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Arsitektur Sistem</span>
+    <h2 class="section-title">Teknologi yang Digunakan</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:32px;">
+      DesaNet dibangun dengan teknologi yang terbukti handal, terjangkau untuk dioperasikan, dan mudah dirawat oleh teknisi lokal.
+    </p>
+
+    <div class="arch-box">
+      <div class="arch-layer">
+        <h5>Frontend</h5>
+        <div class="arch-item">Progressive Web App (PWA)</div>
+        <div class="arch-item">React Native (mobile)</div>
+        <div class="arch-item">IndexedDB untuk offline storage</div>
+        <div class="arch-item">Service Workers</div>
+        <div class="arch-item">Tailwind CSS</div>
+      </div>
+      <div class="arch-layer">
+        <h5>Backend &amp; API</h5>
+        <div class="arch-item">Node.js + Express</div>
+        <div class="arch-item">PostgreSQL Database</div>
+        <div class="arch-item">Redis (caching)</div>
+        <div class="arch-item">REST API + GraphQL</div>
+        <div class="arch-item">WebSocket (notifikasi)</div>
+      </div>
+      <div class="arch-layer">
+        <h5>Infrastruktur</h5>
+        <div class="arch-item">MikroTik Router (WiFi desa)</div>
+        <div class="arch-item">Local edge server di desa</div>
+        <div class="arch-item">Cloud: AWS / GCP</div>
+        <div class="arch-item">CDN untuk konten statik</div>
+        <div class="arch-item">SMS gateway backup</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo-box">9</div>
+          <span style="color:#fff; font-family:var(--font-display); font-size:17px;">SDG 9 Indonesia</span>
+        </div>
+        <p>Prototipe DesaNet — solusi digital terpadu untuk mempercepat akses TIK di daerah terpencil Indonesia.</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="empathy.html">Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">Ideasi</a></li>
+          <li><a href="prototype.html">Prototipe</a></li>
+          <li><a href="testing.html">Pengujian</a></li>
+          <li><a href="reflection.html">Refleksi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Teknologi</h4>
+        <ul>
+          <li><a href="#">Progressive Web App</a></li>
+          <li><a href="#">Offline-First Design</a></li>
+          <li><a href="#">Edge Computing</a></li>
+          <li><a href="#">MikroTik Network</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SDG 9 Indonesia. Prototipe konseptual untuk tujuan edukasi.</span>
+      <span style="color:rgba(255,255,255,0.4);">Tahap: Prototipe</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

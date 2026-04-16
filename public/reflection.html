@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refleksi — SDG 9 Indonesia</title>
+  <meta name="description" content="Refleksi akhir proyek SDG 9: wawasan, dampak, dan rencana masa depan untuk DesaNet." />
+  <link rel="stylesheet" href="sdg.css" />
+  <style>
+    .reflection-hero {
+      background: linear-gradient(145deg, #1C1917 0%, #2C2421 50%, #1A1F2C 100%);
+      padding: 80px 0 72px;
+      position: relative;
+      overflow: hidden;
+    }
+    .reflection-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(240,94,28,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .reflection-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(10,151,217,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .reflection-hero .section-label { color: #FD9D60; }
+    .reflection-hero .display-title { color: #fff; }
+    .reflection-hero .lead { color: rgba(255,255,255,0.65); }
+
+    .insight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.22s, transform 0.22s;
+    }
+    .insight-card:hover { box-shadow: var(--shadow); transform: translateY(-3px); }
+    .insight-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+    .insight-card:hover .insight-number { color: rgba(240,94,28,0.15); }
+    .insight-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .insight-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .insight-tag {
+      display: inline-block;
+      font-size: 11px; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+      margin-top: 14px;
+    }
+
+    .impact-number-card {
+      background: var(--text);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .impact-number-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: rgba(240,94,28,0.12);
+      border-radius: 50%;
+    }
+    .impact-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      color: var(--accent);
+      letter-spacing: -2px;
+      line-height: 1;
+    }
+    .impact-label { font-size: 14px; opacity: 0.7; margin-top: 8px; line-height: 1.5; }
+    .impact-note { font-size: 11px; opacity: 0.5; margin-top: 6px; }
+
+    .roadmap-item {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .roadmap-item:last-child { border: none; }
+    .roadmap-phase {
+      width: 80px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .roadmap-dot {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      margin: 0 auto 6px;
+    }
+    .roadmap-phase-label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-muted); }
+    .roadmap-timeline { font-size: 11px; color: var(--text-light); margin-top: 3px; }
+    .roadmap-content { flex: 1; }
+    .roadmap-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+    .roadmap-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.65; }
+    .roadmap-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .lesson-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .lesson-icon { font-size: 22px; flex-shrink: 0; }
+    .lesson-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .lesson-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    .closing-section {
+      background: linear-gradient(135deg, #FD6925 0%, #F05E1C 100%);
+      padding: 72px 0;
+      text-align: center;
+      color: #fff;
+    }
+    .closing-section h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 16px; }
+    .closing-section p { font-size: 16px; opacity: 0.85; max-width: 580px; margin: 0 auto; line-height: 1.7; }
+    .closing-sdg-row { display: flex; justify-content: center; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+    .closing-badge {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .lesson-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero-strip" style="background:#1C1917; border-bottom:1px solid rgba(255,255,255,0.1);">
+  Tahap 5 dari 5 — Refleksi: Menutup Lingkaran Design Thinking
+</div>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="navbar-brand" href="index.html">
+      <div class="navbar-logo">9</div>
+      <span class="navbar-site-name">SDG 9 Indonesia</span>
+    </a>
+    <div class="navbar-nav">
+      <a href="index.html">Beranda</a>
+      <a href="empathy.html">Empati</a>
+      <a href="ideation.html">Ideasi</a>
+      <a href="prototype.html">Prototipe</a>
+      <a href="testing.html">Pengujian</a>
+      <a href="reflection.html" class="active">Refleksi</a>
+    </div>
+    <button class="nav-toggle" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="empathy.html">Empati &amp; Riset</a>
+  <a href="ideation.html">Ideasi</a>
+  <a href="prototype.html">Prototipe</a>
+  <a href="testing.html">Pengujian</a>
+  <a href="reflection.html" class="active">Refleksi</a>
+</div>
+
+<!-- Page Hero (dark) -->
+<div class="reflection-hero">
+  <div class="container" style="position:relative; z-index:1;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <div style="width:36px;height:36px;background:rgba(240,94,28,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;">🪞</div>
+      <span class="section-label">Langkah 5: Refleksi</span>
+    </div>
+    <h1 class="display-title">Melihat ke Belakang untuk Melangkah ke Depan</h1>
+    <p class="lead" style="margin-top:16px; max-width:640px;">
+      Tahap refleksi menutup siklus Design Thinking kami. Di sini kami merangkum wawasan terpenting, menilai dampak yang sudah dicapai, dan merumuskan langkah-langkah untuk memperluas dampak DesaNet ke depannya.
+    </p>
+  </div>
+</div>
+
+<!-- ==================== WAWASAN UTAMA ==================== -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Wawasan Utama</span>
+    <h2 class="section-title">Yang Kami Pelajari</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:36px; max-width:620px;">
+      Proses panjang dari riset empati hingga pengujian lapangan menghasilkan wawasan mendalam yang mengubah cara kami memandang masalah akses TIK di Indonesia.
+    </p>
+
+    <div class="grid-3">
+      <div class="insight-card">
+        <div class="insight-number">01</div>
+        <div class="insight-title">Manusia Dulu, Teknologi Kemudian</div>
+        <div class="insight-text">
+          Teknologi terbaik pun gagal jika tidak ada "manusia" yang mendampingi penggunanya. Kehadiran Kader Digital terbukti menjadi faktor terpenting dalam adopsi DesaNet — lebih dari spesifikasi teknis apapun. Kepercayaan lokal tidak bisa digantikan oleh instruksi manual.
+        </div>
+        <span class="insight-tag" style="background:var(--accent-soft); color:var(--accent);">Human-Centered</span>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">02</div>
+        <div class="insight-title">Offline = Inklusif</div>
+        <div class="insight-text">
+          Keputusan untuk mendahulukan kemampuan offline ternyata menjadi faktor pembeda terbesar. Pengguna di daerah dengan koneksi tidak stabil justru menjadi pengguna paling aktif, karena mereka tidak frustrasi ketika koneksi terputus. Offline-first bukan kompromi — itu strategi inklusivitas.
+        </div>
+        <span class="insight-tag" style="background:var(--blue-soft); color:var(--blue);">Desain Inklusif</span>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">03</div>
+        <div class="insight-title">Relevansi Konten Adalah Kunci</div>
+        <div class="insight-text">
+          Modul yang paling banyak diakses bukan literasi digital dasar, melainkan modul yang langsung relevan dengan kehidupan sehari-hari: cara jual hasil panen, cara mengurus dokumen desa secara online, dan cara akses layanan kesehatan jarak jauh. Relevansi mengalahkan kelengkapan.
+        </div>
+        <span class="insight-tag" style="background:var(--green-soft); color:var(--green);">Konten &amp; Relevansi</span>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">04</div>
+        <div class="insight-title">Satu Masalah, Banyak Dimensi</div>
+        <div class="insight-text">
+          "Tidak ada internet" ternyata bukan satu masalah, melainkan kumpulan masalah yang saling berkaitan: infrastruktur, biaya, literasi, konten, kepercayaan, dan kebijakan. Solusi tunggal tidak cukup — diperlukan pendekatan ekosistem yang menangani semua dimensi secara bersamaan.
+        </div>
+        <span class="insight-tag" style="background:var(--yellow-soft); color:#A07000;">Pendekatan Sistem</span>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">05</div>
+        <div class="insight-title">Keterbatasan Adalah Guru Terbaik</div>
+        <div class="insight-text">
+          Batasan koneksi lambat, layar kecil, dan pengguna yang tidak familiar dengan teknologi memaksa kami untuk merancang dengan lebih hati-hati dan lebih kreatif. Setiap batasan yang diatasi menghasilkan solusi yang lebih baik — bukan hanya untuk desa, tapi untuk semua orang.
+        </div>
+        <span class="insight-tag" style="background:#F3E8FF; color:#7C3AED);">Inovasi Terbatas</span>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-number">06</div>
+        <div class="insight-title">Komunitas Adalah Infrastruktur</div>
+        <div class="insight-text">
+          Jaringan sosial yang sudah ada di desa — kepercayaan pada tokoh lokal, semangat gotong royong, dan struktur komunitas yang kuat — adalah infrastruktur yang paling berharga. DesaNet berhasil bukan karena menggantikan struktur ini, tapi karena memperkuatnya.
+        </div>
+        <span class="insight-tag" style="background:#FFE4E6; color:#E11D48;">Modal Sosial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DAMPAK ==================== -->
+<section class="section" style="background:var(--text); padding:64px 0;">
+  <div class="container">
+    <span class="section-label" style="color:#FD9D60;">Dampak yang Dicapai</span>
+    <h2 class="section-title" style="color:#fff;">Angka yang Berbicara</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:40px; color:rgba(255,255,255,0.6);">
+      Meskipun masih dalam fase pilot dengan 3 desa dan 87 pengguna, dampak awal DesaNet sudah terukur dan menjanjikan.
+    </p>
+
+    <div class="grid-4">
+      <div class="impact-number-card">
+        <div class="impact-num">87</div>
+        <div class="impact-label">Pengguna aktif terlayani dalam uji coba 6 minggu</div>
+        <div class="impact-note">3 desa percontohan</div>
+      </div>
+      <div class="impact-number-card">
+        <div class="impact-num">+67%</div>
+        <div class="impact-label">Peningkatan rata-rata skor literasi digital peserta</div>
+        <div class="impact-note">Pre vs. post test</div>
+      </div>
+      <div class="impact-number-card">
+        <div class="impact-num">12</div>
+        <div class="impact-label">UMKM berhasil membuka toko online pertama mereka</div>
+        <div class="impact-note">Selama periode pilot</div>
+      </div>
+      <div class="impact-number-card">
+        <div class="impact-num">94%</div>
+        <div class="impact-label">Pengguna menyatakan ingin terus menggunakan DesaNet</div>
+        <div class="impact-note">Survei kepuasan akhir</div>
+      </div>
+    </div>
+
+    <!-- SDG alignment -->
+    <div style="margin-top:40px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius); padding:32px;">
+      <div style="font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:16px;">Kontribusi terhadap SDGs</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:14px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:28px; height:28px; background:#FD6925; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700; flex-shrink:0;">9</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.7);">Infrastruktur &amp; Inovasi (Target 9.c)</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:28px; height:28px; background:#C5192D; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700; flex-shrink:0;">4</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.7);">Pendidikan Berkualitas</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:28px; height:28px; background:#A21942; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700; flex-shrink:0;">8</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.7);">Pekerjaan Layak &amp; Pertumbuhan Ekonomi</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:28px; height:28px; background:#DD1367; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700; flex-shrink:0;">10</div>
+          <div style="font-size:13px; color:rgba(255,255,255,0.7);">Berkurangnya Ketimpangan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PELAJARAN ==================== -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Pelajaran Proses</span>
+    <h2 class="section-title">Yang Bisa Dilakukan Lebih Baik</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:32px; max-width:580px;">
+      Kejujuran dalam mengevaluasi kelemahan proses adalah landasan untuk perbaikan yang genuine.
+    </p>
+
+    <div class="lesson-grid">
+      <div class="lesson-item">
+        <span class="lesson-icon">⏰</span>
+        <div>
+          <div class="lesson-title">Waktu Riset Terlalu Singkat</div>
+          <div class="lesson-text">Fase empati dilakukan hanya selama 2 minggu — tidak cukup untuk memahami sepenuhnya keragaman 3 lokasi yang berbeda. Idealnya riset membutuhkan 4–6 minggu dengan lebih banyak metode campuran.</div>
+        </div>
+      </div>
+
+      <div class="lesson-item">
+        <span class="lesson-icon">👥</span>
+        <div>
+          <div class="lesson-title">Kurang Melibatkan Perempuan</div>
+          <div class="lesson-text">70% peserta uji coba adalah laki-laki, padahal perempuan — terutama ibu rumah tangga — adalah pengguna potensial terbesar. Ke depan, rekrutmen peserta harus mempertimbangkan keseimbangan gender secara eksplisit.</div>
+        </div>
+      </div>
+
+      <div class="lesson-item">
+        <span class="lesson-icon">🔋</span>
+        <div>
+          <div class="lesson-title">Mengabaikan Masalah Listrik</div>
+          <div class="lesson-text">Sejak awal desain, kami tidak cukup mempertimbangkan masalah ketidakandalan listrik yang ternyata sangat memengaruhi pengalaman pengguna. Rancangan infrastruktur harus menyertakan solusi daya cadangan (solar, baterai) sejak awal.</div>
+        </div>
+      </div>
+
+      <div class="lesson-item">
+        <span class="lesson-icon">📱</span>
+        <div>
+          <div class="lesson-title">Pengujian Perangkat Kurang Beragam</div>
+          <div class="lesson-text">Kami menguji di 5 model ponsel, padahal pengguna nyata menggunakan ratusan varian ponsel Android berbeda. Beberapa bug kritis di model ponsel murah tertentu baru ditemukan setelah peluncuran pilot.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ROADMAP ==================== -->
+<section class="section" style="background:var(--bg-card); border-top:1px solid var(--border);">
+  <div class="container">
+    <span class="section-label">Rencana Masa Depan</span>
+    <h2 class="section-title">Peta Jalan Pengembangan DesaNet</h2>
+    <p class="lead" style="margin-top:12px; margin-bottom:36px; max-width:600px;">
+      Berdasarkan seluruh pembelajaran, berikut adalah rencana pengembangan DesaNet untuk 3 tahun ke depan.
+    </p>
+
+    <div>
+      <div class="roadmap-item">
+        <div class="roadmap-phase">
+          <div class="roadmap-dot" style="background:var(--accent);"></div>
+          <div class="roadmap-phase-label">Fase 1</div>
+          <div class="roadmap-timeline">2024–2025</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">Ekspansi 100 Desa Percontohan</div>
+          <div class="roadmap-desc">Memperluas pilot ke 100 desa di 10 provinsi yang mewakili keragaman geografis dan demografis Indonesia. Merekrut dan melatih 300 Kader Digital. Memperkuat kemitraan dengan Kementerian Desa dan operator telekomunikasi nasional.</div>
+          <div class="roadmap-tags">
+            <span class="badge badge-orange">100 Desa</span>
+            <span class="badge badge-blue">300 Kader</span>
+            <span class="badge badge-green">10 Provinsi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-phase">
+          <div class="roadmap-dot" style="background:var(--blue);"></div>
+          <div class="roadmap-phase-label">Fase 2</div>
+          <div class="roadmap-timeline">2025–2026</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">Integrasi AI untuk Personalisasi Pembelajaran</div>
+          <div class="roadmap-desc">Mengintegrasikan kecerdasan buatan lokal (on-device AI) untuk memberikan rekomendasi modul yang dipersonalisasi, asistensi bahasa daerah, dan deteksi kesulitan belajar. Menambah 100+ modul konten dalam 15 bahasa daerah utama.</div>
+          <div class="roadmap-tags">
+            <span class="badge badge-orange">On-Device AI</span>
+            <span class="badge badge-blue">15 Bahasa Daerah</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-phase">
+          <div class="roadmap-dot" style="background:var(--green);"></div>
+          <div class="roadmap-phase-label">Fase 3</div>
+          <div class="roadmap-timeline">2026–2027</div>
+        </div>
+        <div class="roadmap-content">
+          <div class="roadmap-title">Model Kemandirian &amp; Replikasi Regional</div>
+          <div class="roadmap-desc">Mengembangkan model keuangan yang mandiri melalui kemitraan dengan BUMDes, layanan keuangan digital, dan program CSR perusahaan. Mendokumentasikan "playbook" implementasi untuk replikasi di negara berkembang lain di Asia Tenggara.</div>
+          <div class="roadmap-tags">
+            <span class="badge badge-green">Kemandirian Finansial</span>
+            <span class="badge badge-blue">Replikasi ASEAN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CLOSING ==================== -->
+<section class="closing-section">
+  <div class="container" style="position:relative; z-index:1;">
+    <h2>Tidak Ada yang Terlalu Jauh untuk Terhubung</h2>
+    <p>
+      SDG 9 Target 9.c bukan sekadar angka dalam laporan PBB. Ini adalah janji kepada Pak Sumarno di Sulawesi, Dewi di NTT, dan jutaan warga Indonesia lainnya — bahwa teknologi adalah hak, bukan hak istimewa.
+    </p>
+    <div class="closing-sdg-row">
+      <span class="closing-badge">SDG 9.c Indonesia</span>
+      <span class="closing-badge">Agenda 2030</span>
+      <span class="closing-badge">DesaNet</span>
+      <span class="closing-badge">Konektivitas untuk Semua</span>
+    </div>
+    <div style="margin-top:36px; display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;font-weight:600;font-size:14px;padding:12px 22px;border-radius:var(--radius-sm);transition:background 0.18s;">
+        Kembali ke Beranda
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="empathy.html" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);font-weight:500;font-size:14px;padding:12px 22px;border-radius:var(--radius-sm);transition:background 0.18s;">
+        Mulai dari Awal
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-row">
+          <div class="footer-logo-box">9</div>
+          <span style="color:#fff; font-family:var(--font-display); font-size:17px;">SDG 9 Indonesia</span>
+        </div>
+        <p>Proyek edukasi berbasis Design Thinking untuk memahami dan mendukung implementasi SDG 9 Target 9.c di Indonesia.</p>
+        <p style="margin-top:10px; font-size:12px; color:rgba(255,255,255,0.4);">Referensi: PBB, APJII, BPS, Kominfo, ITU, World Bank, UNICEF</p>
+      </div>
+      <div>
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="empathy.html">Empati &amp; Riset</a></li>
+          <li><a href="ideation.html">Ideasi</a></li>
+          <li><a href="prototype.html">Prototipe</a></li>
+          <li><a href="testing.html">Pengujian</a></li>
+          <li><a href="reflection.html">Refleksi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Tentang Proyek</h4>
+        <ul>
+          <li><a href="#">Tentang SDG 9</a></li>
+          <li><a href="#">Design Thinking</a></li>
+          <li><a href="#">Prototipe DesaNet</a></li>
+          <li><a href="#">Metodologi Penelitian</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 SDG 9 Indonesia. Proyek edukasi — tidak untuk tujuan komersial.</span>
+      <span style="color:rgba(255,255,255,0.4);">Tahap: Refleksi (Final)</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  // Animate numbers when in view
+  const animateNumbers = () => {
+    document.querySelectorAll('.impact-num').forEach(el => {
+      const text = el.textContent;
+      if (el.dataset.animated) return;
+      el.dataset.animated = '1';
+      // Simple fade-in animation
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 100);
+    });
+  };
+  const numObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) animateNumbers(); });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.impact-number-card').forEach(el => numObserver.observe(el));
+</script>
+</body>
+</html>
